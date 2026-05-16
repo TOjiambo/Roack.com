@@ -1,0 +1,3222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roack onsult LTD - Real Estate & Professional Surveying in Kenya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="roack.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Luxury Color Palette - African Earth Tones */
+            --primary-gold: #D4A574;
+            --primary-dark: #1A1A1A;
+            --primary-terracotta: #C16E54;
+            --primary-sage: #8B9D83;
+            --accent-copper: #B87333;
+            --neutral-cream: #F5F1E8;
+            --neutral-sand: #E8DCC8;
+            --neutral-stone: #C9BDA8;
+            --text-dark: #2C2C2C;
+            --text-light: #FFFFFF;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            /* Spacing */
+            --section-padding: 120px 0;
+            --container-padding: 0 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background: var(--neutral-cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--neutral-sand);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 25px 80px;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 80px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 2px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-gold);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(193,110,84,0.6) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23C9BDA8" width="1200" height="600"/><g><path fill="%238B9D83" opacity="0.3" d="M0 300L50 320L100 310L150 330L200 315L250 335L300 320L350 340L400 325L450 345L500 330L550 350L600 335L650 355L700 340L750 360L800 345L850 365L900 350L950 370L1000 355L1050 375L1100 360L1150 380L1200 365V600H0Z"/><path fill="%23D4A574" opacity="0.2" d="M0 400L50 390L100 410L150 395L200 415L250 400L300 420L350 405L400 425L450 410L500 430L550 415L600 435L650 420L700 440L750 425L800 445L850 430L900 450L950 435L1000 455L1050 440L1100 460L1150 445L1200 465V600H0Z"/></g></svg>') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 900px;
+            padding: 0 40px;
+            animation: heroSlideUp 1s ease-out;
+        }
+
+        @keyframes heroSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 72px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            animation: heroSlideUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 45px;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            animation: heroSlideUp 1s ease-out 0.4s backwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: heroSlideUp 1s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-copper);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-light);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Decorative Elements */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Quick Services Strip */
+        .services-strip {
+            background: var(--primary-dark);
+            padding: 80px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-strip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100px;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100px); }
+            50% { transform: translateX(1500px); }
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px 35px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-terracotta));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 52px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: var(--section-padding);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 52px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-terracotta));
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Properties Grid */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--neutral-stone), var(--neutral-sand));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .property-content {
+            padding: 30px;
+        }
+
+        .property-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .property-location {
+            color: var(--text-dark);
+            opacity: 0.6;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-price {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-terracotta);
+            margin-bottom: 20px;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-item {
+            font-size: 13px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .property-cta {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-small {
+            padding: 12px 24px;
+            font-size: 12px;
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 50px;
+            display: flex;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .filter-group {
+            flex: 1;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: var(--primary-dark);
+            padding: 100px 80px;
+            color: var(--text-light);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-item {
+            padding: 35px 20px;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+
+        .trust-item:hover {
+            background: rgba(212, 165, 116, 0.05);
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+        }
+
+        .trust-number {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+        }
+
+        .trust-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--neutral-sand);
+            padding: 100px 80px;
+        }
+
+        .testimonial-slider {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-display);
+            font-size: 24px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.6;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 120px;
+            color: var(--primary-gold);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-family: var(--font-display);
+        }
+
+        /* Survey Process */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 40px;
+            font-size: 32px;
+            color: var(--primary-gold);
+            opacity: 0.3;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-copper));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .process-step h4 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* Contact Form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary-dark), rgba(26, 26, 26, 0.9));
+            padding: 60px;
+            border-radius: 12px;
+            color: var(--text-light);
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-display);
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--primary-gold);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(212, 165, 116, 0.1);
+            border-color: var(--primary-gold);
+        }
+
+        .contact-icon {
+            font-size: 28px;
+            color: var(--primary-gold);
+        }
+
+        .contact-details h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .contact-details p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 80px 80px 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto 60px;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--primary-gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-gold);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+            }
+        }
+
+        /* About Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 35px;
+            margin-top: 60px;
+        }
+
+        .team-member {
+            text-align: center;
+            transition: transform 0.4s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--neutral-stone), var(--neutral-sand));
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.6) 100%);
+        }
+
+        .team-member h4 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+
+        .team-member p {
+            color: var(--text-dark);
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        /* Credentials */
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .credential-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-gold);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .credential-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .credential-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            color: var(--primary-gold);
+        }
+
+        .credential-card h4 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .credential-card p {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, var(--neutral-stone), var(--neutral-sand));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .project-type {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-content {
+            padding: 35px;
+        }
+
+        .project-card h3 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .project-location {
+            color: var(--text-dark);
+            opacity: 0.6;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        /* Why Choose Us */
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 35px;
+        }
+
+        .why-card {
+            background: white;
+            padding: 45px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+        }
+
+        .why-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .why-icon {
+            font-size: 52px;
+            margin-bottom: 25px;
+            color: var(--primary-terracotta);
+        }
+
+        .why-card h4 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-terracotta) 100%);
+            padding: 80px;
+            text-align: center;
+            margin: 120px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-banner h2 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: var(--text-light);
+            opacity: 0.9;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Map Container */
+        .map-container {
+            width: 100%;
+            height: 450px;
+            background: var(--neutral-sand);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 40px;
+            border: 2px solid var(--primary-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            :root {
+                --section-padding: 80px 0;
+                --container-padding: 0 40px;
+            }
+
+            nav, .section {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .services-grid,
+            .properties-grid,
+            .why-choose-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-grid,
+            .trust-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .services-grid,
+            .properties-grid,
+            .process-grid,
+            .trust-grid,
+            .why-choose-grid,
+            .team-grid,
+            .credentials-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .cta-banner h2 {
+                font-size: 32px;
+            }
+
+            footer {
+                padding: 60px 30px 30px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo" onclick="navigateTo('home')">Roack Consult</a>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+      ☰
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="nav-link active" onclick="navigateTo('home')">Home</a>
+      <a href="#" class="nav-link" onclick="navigateTo('properties')">Properties</a>
+      <a href="#" class="nav-link" onclick="navigateTo('services')">Survey Services</a>
+      <a href="#" class="nav-link" onclick="navigateTo('projects')">Projects</a>
+      <a href="#" class="nav-link" onclick="navigateTo('about')">About</a>
+      <a href="#" class="nav-link" onclick="navigateTo('contact')">Contact</a>
+    </div>
+  </div>
+  <style>.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* default desktop */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* hide hamburger on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    background: #111;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+  }
+
+  .nav-links a {
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+</style>
+</nav>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+    <section class="hero" style="
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+">
+
+    <!-- 🛰️ BACKGROUND -->
+    <div style="
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1950&q=80');
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.1);
+        animation: slowZoom 20s infinite alternate ease-in-out;
+        z-index: 0;
+    "></div>
+
+    <!-- 🌑 OVERLAY -->
+    <div style="
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 1;
+    "></div>
+
+    <!-- 🗺️ GIS GRID -->
+    <div style="
+        position: absolute;
+        inset: 0;
+        opacity: 0.2;
+        background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+    "></div>
+
+    <!-- CONTENT -->
+    <div style="
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        max-width: 800px;
+        padding: 20px;
+    ">
+
+        <h1 style="
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+        ">
+            Reliable Real Estate & Land Survey Solutions in Kenya
+        </h1>
+
+        <p style="
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #ddd;
+        ">
+            From boundary verification to property management <br/>everything in one intelligent system
+        </p>
+
+        <!-- CTA -->
+<div style="
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+">
+
+    <!-- PRIMARY CTA -->
+    <button onclick="navigateTo('services')" style="
+        padding: 13px 26px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.25);
+        font-weight: 600;
+        color: #0b0b0b;
+        background: linear-gradient(135deg, #ffffff 0%, #f2f2f2 100%);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        backdrop-filter: blur(8px);
+        transition: all 0.35s ease;
+    "
+    onmouseover="
+        this.style.transform='translateY(-3px)';
+        this.style.boxShadow='0 18px 40px rgba(0,0,0,0.25)';
+    "
+    onmouseout="
+        this.style.transform='translateY(0)';
+        this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)';
+    ">
+        Request Survey →
+    </button>
+
+    <!-- SECONDARY CTA -->
+    <button onclick="navigateTo('properties')" style="
+        padding: 13px 26px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.35);
+        font-weight: 600;
+        color: white;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.35s ease;
+    "
+    onmouseover="
+        this.style.background='rgba(255,255,255,0.12)';
+        this.style.transform='translateY(-3px)';
+        this.style.boxShadow='0 12px 30px rgba(0,0,0,0.3)';
+    "
+    onmouseout="
+        this.style.background='rgba(255,255,255,0.05)';
+        this.style.transform='translateY(0)';
+        this.style.boxShadow='none';
+    ">
+        View Properties →
+    </button>
+
+</div>
+
+    </div>
+
+    <!-- ANIMATION -->
+    <style>
+        @keyframes slowZoom {
+            from { transform: scale(1.05); }
+            to { transform: scale(1.15); }
+        }
+    </style>
+    <style>
+/* =========================
+   PRIMARY CTA BUTTON
+========================= */
+.btn-primary {
+    padding: 14px 28px;
+    border-radius: 14px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0a0a0a;
+
+    /* Premium gradient */
+    background: linear-gradient(135deg, #ffffff, #dcdcdc);
+
+    /* Depth */
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover lift + glow */
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 18px 40px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(255, 255, 255, 0.25);
+}
+
+/* subtle shimmer effect */
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.6),
+        transparent
+    );
+    transform: skewX(-20deg);
+}
+
+.btn-primary:hover::after {
+    animation: shine 0.8s ease;
+}
+
+@keyframes shine {
+    100% {
+        left: 150%;
+    }
+}
+
+/* =========================
+   SECONDARY CTA BUTTON
+========================= */
+.btn-secondary {
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ffffff;
+
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(14px);
+
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.2);
+
+    transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   OPTIONAL: CTA GROUP SPACING
+========================= */
+.hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+@media (max-width: 768px) {
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+</style>
+
+</section>
+
+<section style="
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 20px 30px;
+">
+
+    <h2 style="
+        font-size: clamp(1.6rem, 3vw, 2.3rem);
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    ">
+        End-to-End Land & Real Estate Solutions
+    </h2>
+
+    <p style="
+        font-size: 1.05rem;
+        color: #666;
+        line-height: 1.6;
+        max-width: 750px;
+        margin: 0 auto;
+    ">
+        Our platform integrates property intelligence, professional surveying, and development consultancy into a single streamlined system — helping you make faster, data-driven land decisions.
+    </p>
+
+    <!-- OPTIONAL TRUST MICRO LINE -->
+    <p style="
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #999;
+    ">
+        Trusted by landowners, developers, and survey professionals across Kenya
+    </p>
+
+</section>
+        <!-- Quick Services Strip -->
+        <section class="services-strip">
+            <div class="services-grid">
+                <div class="service-card" onclick="navigateTo('properties')">
+                    <div class="service-icon">🏡</div>
+                    <h3>Property Listings</h3>
+                    <p>Prime residential and commercial properties across Kenya's most sought-after locations</p>
+                </div>
+                <div class="service-card" onclick="navigateTo('services')">
+                    <div class="service-icon">🗺️</div>
+                    <h3>Land Surveying</h3>
+                    <p>Professional boundary, topographic, and cadastral surveying with certified reports</p>
+                </div>
+                <div class="service-card" onclick="navigateTo('contact')">
+                    <div class="service-icon">🏙️</div>
+                    <h3>Development Consultancy</h3>
+                    <p>Expert guidance from land acquisition through to project completion</p>
+                </div>
+            </div>
+        </section>
+<!-- Featured Properties -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">Featured Properties</h2>
+        <p class="section-subtitle">Handpicked premium properties in prime locations</p>
+    </div>
+
+    <div class="properties-grid">
+
+        <!-- Property Card 1 -->
+        <div class="property-card">
+            <div class="property-image">
+                <img src="Screenshot (40).png" alt="Coastal Beachfront Land">
+                <div class="property-badge">For Sale</div>
+            </div>
+
+            <div class="property-content">
+                <h3 class="property-title">Fly Park Estate</h3>
+                <p class="property-location">📍 Lukenya , near Daystar</p>
+
+                <div class="property-price">KES 28M</div>
+
+                <div class="property-features">
+                    <span class="feature-item">1.8 Acres</span>
+                    <span class="feature-item">Beach Access</span>
+                </div>
+
+                <div class="property-cta">
+                    <a class="btn btn-primary btn-small"
+                       href="property1.html">
+                       View Details
+                    </a>
+
+                    <a class="btn btn-primary btn-small"
+                       href="property1.html#contactForm"
+                       target="_blank">
+                      Request Viewing
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Card 2 -->
+        <div class="property-card">
+            <div class="property-image">
+                <img src="Screenshot (41).png" alt="Coastal Lease Property">
+                <div class="property-badge">For Lease</div>
+            </div>
+
+            <div class="property-content">
+                <h3 class="property-title">Coastal Beachfront Land</h3>
+                <p class="property-location">📍 Diani, Mombasa</p>
+
+                <div class="property-price">KES 28M</div>
+
+                <div class="property-features">
+                    <span class="feature-item">1.8 Acres</span>
+                    <span class="feature-item">Beach Access</span>
+                </div>
+
+                <div class="property-cta">
+                    <a class="btn btn-primary btn-small"
+                       href="property-details.html">
+                       View Details
+                    </a>
+
+                      <a class="btn btn-primary btn-small"
+                       href="property1.html#contactForm"
+                       target="_blank">
+                      Request Viewing
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Card 3 -->
+        <div class="property-card">
+            <div class="property-image">
+                <img src="Screenshot (42).png" alt="Industrial Park Plot">
+                <div class="property-badge">For Sale</div>
+            </div>
+
+            <div class="property-content">
+                <h3 class="property-title">Industrial Park Plot</h3>
+                <p class="property-location">📍 Athi River, Machakos</p>
+
+                <div class="property-price">KES 62M</div>
+
+                <div class="property-features">
+                    <span class="feature-item">5 Acres</span>
+                    <span class="feature-item">Commercial Zone</span>
+                </div>
+
+                <div class="property-cta">
+                    <a class="btn btn-primary btn-small"
+                       href="property-details.html?property=industrial-park">
+                       View Details
+                    </a>
+
+                      <a class="btn btn-primary btn-small"
+                       href="property1.html#contactForm"
+                       target="_blank">
+                      Request Viewing
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+        <!-- Why Choose Us -->
+        <section class="section" style="background: var(--neutral-sand); padding: 100px 80px;">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Us</h2>
+                <p class="section-subtitle">Setting the standard for excellence in real estate and surveying</p>
+            </div>
+            <div class="why-choose-grid">
+                <div class="why-card">
+                    <div class="why-icon">🎯</div>
+                    <h4>Accuracy</h4>
+                    <p>Precision surveying with state-of-the-art GPS and total station equipment</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">⚖️</div>
+                    <h4>Legal Compliance</h4>
+                    <p>Fully registered surveyors ensuring all work meets statutory requirements</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">⚡</div>
+                    <h4>Fast Turnaround</h4>
+                    <p>Efficient project completion without compromising on quality or detail</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🏆</div>
+                    <h4>Trusted Reporting</h4>
+                    <p>Comprehensive, court-admissible survey reports and documentation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Section -->
+        <section class="trust-section">
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-number">15+</div>
+                    <div class="trust-label">Years Experience</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">1,200+</div>
+                    <div class="trust-label">Projects Completed</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">850+</div>
+                    <div class="trust-label">Happy Clients</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">98%</div>
+                    <div class="trust-label">Satisfaction Rate</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+<section class="testimonials">
+
+    <div class="section-header">
+        <h2 class="section-title">Client Testimonials</h2>
+        <p class="section-subtitle">
+            Trusted by discerning landowners and investors
+        </p>
+    </div>
+
+    <div class="testimonial-slider">
+
+        <div class="testimonial-card">
+            <div class="quote-icon">“</div>
+
+            <p class="testimonial-quote">
+                The entire process felt secure and transparent. From surveying to title verification, everything was handled with precision and professionalism.
+            </p>
+
+            <div class="testimonial-meta">
+                <p class="testimonial-author">Margaret Wanjiru</p>
+                <p class="testimonial-role">Property Owner • Karen, Nairobi</p>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="quote-icon">“</div>
+
+            <p class="testimonial-quote">
+                Their insight into land value and zoning saved us from a poor investment decision. Extremely knowledgeable and trustworthy team.
+            </p>
+
+            <div class="testimonial-meta">
+                <p class="testimonial-author">Daniel Mwangi</p>
+                <p class="testimonial-role">Investor • Athi River Projects</p>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="quote-icon">“</div>
+
+            <p class="testimonial-quote">
+                What stood out most was their attention to detail. Every report was clear, accurate, and delivered faster than expected.
+            </p>
+
+            <div class="testimonial-meta">
+                <p class="testimonial-author">Amina Noor</p>
+                <p class="testimonial-role">Land Buyer • Coastal Kenya</p>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="quote-icon">“</div>
+
+            <p class="testimonial-quote">
+                A truly premium experience. They don’t just sell land — they guide you through making the right long-term investment decisions.
+            </p>
+
+            <div class="testimonial-meta">
+                <p class="testimonial-author">Peter Kamau</p>
+                <p class="testimonial-role">Developer • Nairobi Metro</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="trust-bar">
+        <div class="trust-item">✔ Verified Land Surveys</div>
+        <div class="trust-item">✔ Legal Due Diligence</div>
+        <div class="trust-item">✔ High-Value Property Deals</div>
+        <div class="trust-item">✔ Nationwide Coverage</div>
+    </div>
+
+</section>
+
+
+<style>
+.testimonials {
+    padding: 5rem 2rem;
+    background: #0b0b0b; /* deep black */
+    color: #f5f5f5;
+}
+
+/* HEADER */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    text-align: center;
+    color: #d4af37; /* muted gold */
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #a78a5a; /* warm brown-gold */
+    margin-bottom: 3rem;
+}
+
+/* GRID */
+.testimonial-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* CARD */
+.testimonial-card {
+    background: linear-gradient(145deg, #1a1410, #120f0c);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 14px;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.35s ease;
+}
+
+/* hover luxury lift */
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* quote mark */
+.quote-icon {
+    font-size: 3rem;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    color: #a0783a; /* muted gold-brown */
+    opacity: 0.25;
+}
+
+/* TEXT */
+.testimonial-quote {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e6e1d9;
+    margin-bottom: 1.5rem;
+}
+
+/* AUTHOR */
+.testimonial-author {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+.testimonial-role {
+    font-size: 0.85rem;
+    color: #9c8b72;
+}
+
+/* TRUST BAR */
+.trust-bar {
+    margin-top: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.trust-item {
+    background: #120f0c;
+    border: 1px solid rgba(164, 124, 58, 0.25);
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    color: #c9a961;
+    font-size: 0.85rem;
+}
+</style>
+
+        <!-- CTA Banner -->
+        <section class="cta-banner">
+            <h2>Need Land or Survey Support Today?</h2>
+            <p>Our team is ready to help you secure and verify your next property investment</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Consultation</button>
+                <button class="btn btn-secondary" onclick="navigateTo('contact')">Request Callback</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- PROPERTIES PAGE -->
+    <div id="properties" class="page">
+        <div style="height: 100px;"></div>
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Property Listings</h2>
+                <p class="section-subtitle">Discover premium land and real estate opportunities</p>
+            </div>
+
+            <!-- Filter Bar -->
+          <div class="filter-bar">
+
+    <!-- LOCATION -->
+    <div class="filter-group">
+        <label>Location</label>
+        <select id="locationFilter">
+            <option value="">All Locations</option>
+            <option>Nairobi</option>
+            <option>Mombasa</option>
+            <option>Kisumu</option>
+            <option>Machakos</option>
+        </select>
+    </div>
+
+    <!-- PRICE -->
+    <div class="filter-group">
+        <label>Price Range</label>
+        <select id="priceFilter">
+            <option value="">All Prices</option>
+            <option value="under10">Under 10M</option>
+            <option value="10to50">10M - 50M</option>
+            <option value="50plus">50M+</option>
+        </select>
+    </div>
+
+    <!-- TYPE -->
+    <div class="filter-group">
+        <label>Property Type</label>
+        <select id="typeFilter">
+            <option value="">All Types</option>
+            <option>Residential Land</option>
+            <option>Commercial Land</option>
+            <option>Industrial Plot</option>
+            <option>Agricultural</option>
+        </select>
+    </div>
+
+    <!-- STATUS -->
+    <div class="filter-group">
+        <label>Status</label>
+        <select id="statusFilter">
+            <option value="">All Status</option>
+            <option>For Sale</option>
+            <option>For Rent</option>
+            <option>For Lease</option>
+        </select>
+    </div>
+
+</div>
+<style>
+    .filter-bar {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.filter-group label {
+    color: #d4af37; /* gold label */
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* FIX DROPDOWN VISIBILITY */
+.filter-group select {
+    background: #111;        /* dark background */
+    color: #fff;             /* visible text */
+    border: 1px solid #d4af37;
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* FIX OPTIONS INSIDE DROPDOWN */
+.filter-group select option {
+    background: #fff;   /* important */
+    color: #000;        /* readable text */
+}
+</style>
+
+
+            <!-- Properties Grid -->
+            <div class="properties-grid">
+                <div class="property-card"
+     data-location="Nairobi"
+     data-price="45"
+     data-type="Residential"
+     data-status="For Sale">
+
+    <div class="property-image">
+        <div class="property-badge">For Sale</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Riverside Estate Plot</h3>
+        <p class="property-location">📍 Karen, Nairobi</p>
+
+        <div class="property-price">KES 45M</div>
+
+        <div class="property-features">
+            <span class="feature-item">2.5 Acres</span>
+            <span class="feature-item">Title Deed</span>
+            <span class="feature-item">Gated</span>
+        </div>
+
+       <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+               <div class="property-card"
+     data-location="Mombasa"
+     data-price="28"
+     data-type="Commercial"
+     data-status="For Lease">
+
+    <div class="property-image">
+        <div class="property-badge">For Lease</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Coastal Beachfront Land</h3>
+
+        <p class="property-location">📍 Diani, Mombasa</p>
+
+        <div class="property-price">KES 28M</div>
+
+        <div class="property-features">
+            <span class="feature-item">1.8 Acres</span>
+            <span class="feature-item">Beach Access</span>
+            <span class="feature-item">Tourism Zone</span>
+        </div>
+
+       <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+                <div class="property-card"
+     data-location="Machakos"
+     data-price="62"
+     data-type="Industrial"
+     data-status="For Sale">
+
+    <div class="property-image">
+        <div class="property-badge">For Sale</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Industrial Park Plot</h3>
+
+        <p class="property-location">📍 Athi River, Machakos</p>
+
+        <div class="property-price">KES 62M</div>
+
+        <div class="property-features">
+            <span class="feature-item">5 Acres</span>
+            <span class="feature-item">Commercial Zone</span>
+            <span class="feature-item">Main Road</span>
+        </div>
+
+       <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+                <div class="property-card"
+     data-location="Kajiado"
+     data-price="8.5"
+     data-type="Residential"
+     data-status="For Sale">
+
+    <div class="property-image">
+        <div class="property-badge">For Sale</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Suburban Family Plot</h3>
+
+        <p class="property-location">📍 Kitengela, Kajiado</p>
+
+        <div class="property-price">KES 8.5M</div>
+
+        <div class="property-features">
+            <span class="feature-item">0.5 Acres</span>
+            <span class="feature-item">Electricity</span>
+            <span class="feature-item">Water</span>
+        </div>
+
+      <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+               <div class="property-card"
+     data-location="Nanyuki"
+     data-price="95"
+     data-type="Agricultural"
+     data-status="For Sale">
+
+    <div class="property-image">
+        <div class="property-badge">For Sale</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Agricultural Farm Land</h3>
+
+        <p class="property-location">📍 Nanyuki, Laikipia</p>
+
+        <div class="property-price">KES 95M</div>
+
+        <div class="property-features">
+            <span class="feature-item">50 Acres</span>
+            <span class="feature-item">River Frontage</span>
+            <span class="feature-item">Fertile Soil</span>
+        </div>
+
+        <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+                <div class="property-card"
+     data-location="Nairobi"
+     data-price="0.35"
+     data-type="Commercial"
+     data-status="For Rent">
+
+    <div class="property-image">
+        <div class="property-badge">For Rent</div>
+    </div>
+
+    <div class="property-content">
+        <h3 class="property-title">Office Space Complex</h3>
+
+        <p class="property-location">📍 Westlands, Nairobi</p>
+
+        <div class="property-price">KES 350K/mo</div>
+
+        <div class="property-features">
+            <span class="feature-item">2,500 sqft</span>
+            <span class="feature-item">Parking</span>
+            <span class="feature-item">Modern</span>
+        </div>
+
+      <div class="property-cta">
+
+    <a href="property1.html" class="btn btn-primary btn-small">
+        View Details
+    </a>
+
+    <a href="property1.html#contactForm"
+       target="_blank"
+       class="btn btn-primary btn-small">
+        Request Viewing
+    </a>
+
+</div>
+    </div>
+</div>
+        </section>
+
+        <section class="cta-banner">
+            <h2>Looking for Something Specific?</h2>
+            <p>Let our team help you find the perfect property match</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Us</button>
+                <button class="btn btn-secondary" onclick="navigateTo('contact')">Contact Agent</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- SURVEY SERVICES PAGE -->
+    <div id="services" class="page">
+        <div style="height: 100px;"></div>
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Professional Land Surveying</h2>
+                <p class="section-subtitle">Certified geospatial solutions for every land requirement</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="services-grid" style="margin-bottom: 80px;">
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">📏</div>
+                    <h3 style="color: var(--primary-dark);">Boundary Survey</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Precise demarcation of property boundaries with GPS coordinates and beacons</p>
+                </div>
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">🗺️</div>
+                    <h3 style="color: var(--primary-dark);">Topographic Survey</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Detailed terrain mapping for construction and development planning</p>
+                </div>
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">📋</div>
+                    <h3 style="color: var(--primary-dark);">Cadastral Survey</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Official land registration and title verification surveys</p>
+                </div>
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">🏗️</div>
+                    <h3 style="color: var(--primary-dark);">Construction Layout</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Precise site layout and setting out for building projects</p>
+                </div>
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">✅</div>
+                    <h3 style="color: var(--primary-dark);">Title Verification</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Comprehensive title search and land ownership verification</p>
+                </div>
+                <div class="service-card" style="background: white; color: var(--text-dark);">
+                    <div class="service-icon">📐</div>
+                    <h3 style="color: var(--primary-dark);">Subdivision Planning</h3>
+                    <p style="color: var(--text-dark); opacity: 0.7;">Expert land subdivision design and approval assistance</p>
+                </div>
+            </div>
+
+            <!-- Process Section -->
+            <div class="section-header" style="margin-bottom: 60px;">
+                <h2 class="section-title">Our Survey Process</h2>
+                <p class="section-subtitle">A systematic approach to delivering accurate results</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h4>Request Survey</h4>
+                    <p>Contact us via WhatsApp, phone, or online form with your requirements</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h4>Site Visit</h4>
+                    <p>Our surveyors assess the land and confirm project scope</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h4>Measurement</h4>
+                    <p>Professional survey using GPS, total stations, and drones</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h4>Report Delivery</h4>
+                    <p>Receive certified reports, maps, and coordinates</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="lux-survey">
+
+  <div class="lux-container">
+
+    <!-- LEFT PANEL (VALUE / BRAND SIDE) -->
+    <div class="lux-info">
+
+      <h2>Professional Land Survey Consultation</h2>
+
+      <p>
+        Get precise, government-recognized land survey services tailored to your property.
+        Fast response, certified surveyors, and transparent pricing.
+      </p>
+
+      <div class="lux-highlights">
+        <div>✔ Certified Survey Team</div>
+        <div>✔ Accurate Boundary Mapping</div>
+        <div>✔ Fast Turnaround</div>
+        <div>✔ Trusted Across Nairobi</div>
+      </div>
+
+      <div class="lux-estimate">
+        Estimated Range: <span id="estimate">KES 0 – 0</span>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL (INTERACTIVE FLOW) -->
+    <div class="lux-card">
+
+      <div class="lux-progress">
+        <div id="progress"></div>
+      </div>
+
+      <form id="surveyForm">
+
+        <!-- STEP 1 -->
+        <div class="lux-step active">
+          <h3>Who is this for?</h3>
+
+          <input type="text" id="name" placeholder="Full Name">
+          <input type="tel" id="phone" placeholder="Phone Number">
+
+          <button type="button" class="next">Continue</button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="lux-step">
+          <h3>Property Location</h3>
+
+          <input type="text" id="location" placeholder="e.g. Karen, Nairobi">
+
+          <div class="lux-map">
+            📍 Drop Pin Preview (Map Integration Later)
+          </div>
+
+          <button type="button" class="back">Back</button>
+          <button type="button" class="next">Continue</button>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="lux-step">
+          <h3>Survey Type</h3>
+
+          <div class="lux-options">
+            <label><input type="checkbox"> Boundary</label>
+            <label><input type="checkbox"> Topographic</label>
+            <label><input type="checkbox"> Subdivision</label>
+            <label><input type="checkbox"> Beacon Re-establishment</label>
+          </div>
+
+          <button type="button" class="back">Back</button>
+          <button type="button" class="next">Continue</button>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="lux-step">
+          <h3>Timeline</h3>
+
+          <select id="urgency">
+            <option value="standard">Standard</option>
+            <option value="urgent">Urgent</option>
+            <option value="vip">VIP Priority</option>
+          </select>
+
+          <textarea id="notes" placeholder="Any additional details..."></textarea>
+
+          <button type="button" class="back">Back</button>
+          <button type="button" class="next">Review</button>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="lux-step">
+          <h3>Confirm Request</h3>
+
+          <div class="lux-summary" id="summary"></div>
+
+          <button type="button" class="back">Back</button>
+          <button type="submit" class="lux-submit">Submit Request</button>
+
+          <a id="whatsappBtn" class="lux-whatsapp" >
+            Send via WhatsApp
+          </a>
+
+        </div>
+
+      </form>
+<style>
+.lux-survey {
+  padding: 80px 40px;
+  background: #0a0a0a;
+}
+
+.lux-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* LEFT SIDE */
+.lux-info h2 {
+  color: #d4af37;
+  font-size: 34px;
+  margin-bottom: 15px;
+}
+
+.lux-info p {
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.lux-highlights {
+  margin-top: 25px;
+  color: #ddd;
+  display: grid;
+  gap: 10px;
+}
+
+.lux-estimate {
+  margin-top: 30px;
+  padding: 15px;
+  border-left: 3px solid #d4af37;
+  background: rgba(255,255,255,0.03);
+}
+
+/* RIGHT CARD */
+.lux-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 18px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+}
+
+/* PROGRESS */
+.lux-progress {
+  height: 3px;
+  background: #222;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.lux-progress div {
+  height: 100%;
+  width: 0%;
+  background: #d4af37;
+  transition: 0.3s;
+}
+
+/* STEPS */
+.lux-step {
+  display: none;
+}
+
+.lux-step.active {
+  display: block;
+}
+
+.lux-step h3 {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+/* INPUTS */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* OPTIONS */
+.lux-options {
+  display: grid;
+  gap: 10px;
+  color: #ccc;
+}
+
+/* MAP */
+.lux-map {
+  padding: 20px;
+  border: 1px dashed #444;
+  margin: 10px 0;
+  text-align: center;
+  color: #777;
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.next {
+  background: #d4af37;
+  color: #000;
+  float: right;
+}
+
+.back {
+  background: #222;
+  color: #fff;
+}
+
+.lux-submit {
+  width: 100%;
+  background: linear-gradient(135deg,#d4af37,#b08d2a);
+  font-weight: bold;
+}
+
+.lux-whatsapp {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  background: #25D366;
+  padding: 10px;
+  border-radius: 8px;
+  color: #000;
+  text-decoration: none;
+}
+</style>
+    </div>
+
+  </div>
+
+</section>
+
+        <section class="cta-banner">
+            <h2>Book a Surveyor Visit Today</h2>
+            <p>Fast, accurate, and professional land surveying services</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Now</button>
+                <button class="btn btn-secondary" onclick="navigateTo('contact')">Request Quote</button>
+            </div>
+        </section>
+    </div>
+
+    
+
+    <!-- PROJECTS PAGE -->
+    <div id="projects" class="page">
+        <div style="height: 100px;"></div>
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Portfolio</h2>
+                <p class="section-subtitle">A showcase of completed survey and development projects</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay"></div>
+                        <div class="project-type">Boundary Survey</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Residential Estate Demarcation</h3>
+                        <p class="project-location">📍 Runda, Nairobi</p>
+                        <p class="project-description">
+                            Complete boundary survey and subdivision of 25-acre residential development. Delivered precise GPS coordinates, beacon placement, and court-admissible documentation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay"></div>
+                        <div class="project-type">Topographic Survey</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Industrial Park Mapping</h3>
+                        <p class="project-location">📍 Thika, Kiambu</p>
+                        <p class="project-description">
+                            Comprehensive topographic survey for 50-acre industrial development. Provided detailed contour maps and drainage analysis for engineering design.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay"></div>
+                        <div class="project-type">Cadastral Survey</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Commercial Property Verification</h3>
+                        <p class="project-location">📍 CBD, Nairobi</p>
+                        <p class="project-description">
+                            Title verification and cadastral survey for prime commercial property. Resolved boundary disputes and secured clean title documentation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay"></div>
+                        <div class="project-type">Development Project</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Beachfront Resort Planning</h3>
+                        <p class="project-location">📍 Malindi, Kilifi</p>
+                        <p class="project-description">
+                            End-to-end survey and development consultancy for luxury beach resort. From land acquisition through to construction layout and approvals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-section">
+            <div class="section-header" style="margin-bottom: 60px;">
+                <h2 class="section-title" style="color: var(--primary-gold);">Project Statistics</h2>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-number">680+</div>
+                    <div class="trust-label">Boundary Surveys</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">320+</div>
+                    <div class="trust-label">Topographic Maps</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">150+</div>
+                    <div class="trust-label">Title Verifications</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">8,500+</div>
+                    <div class="trust-label">Acres Surveyed</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div style="height: 100px;"></div>
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">About Roack Consult LTD.</h2>
+                <p class="section-subtitle">Building trust through precision, professionalism, and proven expertise</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto 80px; text-align: center;">
+                <p style="font-size: 18px; line-height: 2; color: var(--text-dark); opacity: 0.8;">
+                    Founded in 2009, Roack Consult LTD. has grown to become one of Kenya's most trusted names in real estate and land surveying. We combine cutting-edge technology with deep local knowledge to deliver exceptional service across property acquisition, professional surveying, and development consultancy.
+                </p>
+            </div>
+
+            <!-- Credentials Section -->
+            <div class="section-header" style="margin-bottom: 60px;">
+                <h2 class="section-title">Our Credentials</h2>
+                <p class="section-subtitle">Licensed, certified, and committed to excellence</p>
+            </div>
+            <div class="credentials-grid">
+                <div class="credential-card">
+                    <div class="credential-icon">🎓</div>
+                    <h4>Licensed Surveyors</h4>
+                    <p>Registered with the Institution of Surveyors of Kenya (ISK)<br>License No: ISK/2009/4782</p>
+                </div>
+                <div class="credential-card">
+                    <div class="credential-icon">⚖️</div>
+                    <h4>Legal Compliance</h4>
+                    <p>Fully compliant with Survey Act Cap 299<br>Court-admissible reports</p>
+                </div>
+                <div class="credential-card">
+                    <div class="credential-icon">🏆</div>
+                    <h4>ISO Certified</h4>
+                    <p>ISO 9001:2015 Quality Management<br>Certified processes and standards</p>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="section-header" style="margin: 120px 0 60px;">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-subtitle">Expert professionals dedicated to your success</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <h4>David Kimani</h4>
+                    <p>Chief Surveyor</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <h4>Sarah Omondi</h4>
+                    <p>Development Consultant</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <h4>James Mwangi</h4>
+                    <p>Real Estate Manager</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <h4>Grace Njeri</h4>
+                    <p>Senior Land Surveyor</p>
+                </div>
+            </div>
+
+            <!-- Mission Section -->
+            <div style="background: var(--neutral-sand); padding: 80px; border-radius: 12px; margin-top: 100px; text-align: center;">
+                <h3 style="font-family: var(--font-display); font-size: 36px; margin-bottom: 25px; color: var(--primary-dark);">Our Mission</h3>
+                <p style="font-size: 18px; line-height: 2; max-width: 800px; margin: 0 auto; color: var(--text-dark); opacity: 0.8;">
+                    To provide Kenya with unparalleled real estate and surveying services, combining precision technology with personalized service. We're committed to helping individuals, businesses, and developers secure and verify land with complete confidence and legal certainty.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div style="height: 100px;"></div>
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">We're here to help with all your land and surveying needs</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p style="opacity: 0.8; margin-bottom: 40px;">Reach out through any of these channels and our team will respond promptly.</p>
+
+                    <div class="contact-item" onclick="openWhatsApp()">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>+254 729 153 891</p>
+                        </div>
+                    </div>
+
+                   <a href="tel:+254729153891" class="contact-item">
+    <div class="contact-icon">📞</div>
+    <div class="contact-details">
+        <h4>Phone</h4>
+        <p>+254 729 153 891</p>
+    </div>
+</a>
+<style>
+    .contact-item {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+</style>
+
+                   <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@roackconsult.com" class="contact-item">
+    <div class="contact-icon">📧</div>
+    <div class="contact-details">
+        <h4>Email</h4>
+        <p>info@roackconsult.com</p>
+    </div>
+</a>
+<style>
+    .contact-item {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+</style>
+                    <div class="contact-item">
+    <div class="contact-icon">📍</div>
+
+    <div class="contact-details">
+        <h4>Office</h4>
+        <p>Utumishi Co-operative House, Mamlaka Road, Nairobi, Kenya, 00400</p>
+    </div>
+
+    <!-- MAP -->
+    <div class="contact-map">
+        <iframe 
+            src="https://www.google.com/maps?q=Utumishi+Co-operative+House,+Mamlaka+Road,+Nairobi,+Kenya&output=embed"
+            width="100%" 
+            height="250" 
+            style="border:0; border-radius:12px; margin-top:15px;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </div>
+</div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Send Us a Message</h3>
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" required placeholder="+254 712 345 678">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Needed *</label>
+                            <select required>
+                                <option value="">Select a service...</option>
+                                <option>Property Inquiry</option>
+                                <option>Boundary Survey</option>
+                                <option>Topographic Survey</option>
+                                <option>Title Verification</option>
+                                <option>Development Consultancy</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" placeholder="Nairobi, Karen">
+                        </div>
+                        <div class="form-group">
+                            <label>Message *</label>
+                            <textarea required placeholder="Tell us about your requirements..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+
+          
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>ROACK CONSULT LTD</h3>
+                <p>Your trusted partner for real estate acquisition and professional land surveying across Kenya. Licensed, certified, and committed to excellence.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/roackconsultltd/"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fas fa-book"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('about')">About Us</a></li>
+                    <li><a href="#" onclick="navigateTo('projects')">Our Projects</a></li>
+                    <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('properties')">Real Estate</a></li>
+                    <li><a href="#" onclick="navigateTo('services')">Land Surveying</a></li>
+                    <li><a href="#">Development Consulting</a></li>
+                    <li><a href="#">Title Verification</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Licensing</a></li>
+                    <li><a href="#">Certifications</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Roack Consult LTD. All rights reserved. Licensed Surveyors of Kenya (ISK/2009/4782)</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // WhatsApp function
+        function openWhatsApp() {
+            const phoneNumber = '254712345678'; // Replace with actual number
+            const message = 'Hello! I would like to inquire about your services.';
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Property details view
+        function viewPropertyDetails(propertyName) {
+            alert(`Viewing details for: ${propertyName}\n\nThis would open a detailed property page with:\n- Image gallery\n- Full description\n- Location map\n- Amenities\n- Contact agent form`);
+        }
+
+        // Form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your inquiry! Our team will contact you within 24 hours.\n\nFor immediate assistance, please use the WhatsApp button.');
+            event.target.reset();
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+<script>
+const locationFilter = document.getElementById("locationFilter");
+const priceFilter = document.getElementById("priceFilter");
+const typeFilter = document.getElementById("typeFilter");
+const statusFilter = document.getElementById("statusFilter");
+
+const cards = document.querySelectorAll(".property-card");
+
+function filterProperties() {
+
+    cards.forEach(card => {
+
+        const location = card.dataset.location;
+        const price = parseFloat(card.dataset.price);
+        const type = card.dataset.type;
+        const status = card.dataset.status;
+
+        let show = true;
+
+        // LOCATION
+        if (locationFilter.value && location !== locationFilter.value) {
+            show = false;
+        }
+
+        // PRICE
+        if (priceFilter.value) {
+            if (priceFilter.value === "under10" && price >= 10) show = false;
+            if (priceFilter.value === "10to50" && (price < 10 || price > 50)) show = false;
+            if (priceFilter.value === "50plus" && price < 50) show = false;
+        }
+
+        // TYPE
+        if (typeFilter.value && type !== typeFilter.value) {
+            show = false;
+        }
+
+        // STATUS
+        if (statusFilter.value && status !== statusFilter.value) {
+            show = false;
+        }
+
+        card.style.display = show ? "block" : "none";
+    });
+}
+
+// EVENTS
+locationFilter.addEventListener("change", filterProperties);
+priceFilter.addEventListener("change", filterProperties);
+typeFilter.addEventListener("change", filterProperties);
+statusFilter.addEventListener("change", filterProperties);
+
+// INIT
+filterProperties();
+</script>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = this;
+
+    const subject = "New Inquiry from " + form.elements[0].value;
+
+    const body =
+        "Name: " + form.elements[0].value + "\n" +
+        "Phone: " + form.elements[1].value + "\n" +
+        "Email: " + form.elements[2].value + "\n" +
+        "Service: " + form.elements[3].value + "\n" +
+        "Location: " + form.elements[4].value + "\n\n" +
+        "Message:\n" + form.elements[5].value;
+
+    window.location.href =
+        "mailto:tonyasiachi@gmail.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
