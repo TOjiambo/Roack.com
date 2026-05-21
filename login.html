@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Secure Admin Access</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI;
+  }
+
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #050816;
+    overflow: hidden;
+    color: white;
+  }
+
+  /* animated gradient mesh */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(circle at 20% 30%, #3b82f6, transparent 40%),
+                radial-gradient(circle at 80% 70%, #a855f7, transparent 40%),
+                radial-gradient(circle at 50% 50%, #22c55e, transparent 50%);
+    filter: blur(80px);
+    animation: float 12s infinite alternate ease-in-out;
+    opacity: 0.5;
+  }
+
+  @keyframes float {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(40px,-30px) scale(1.1); }
+  }
+
+  .card {
+    position: relative;
+    width: 390px;
+    padding: 42px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    z-index: 2;
+    animation: pop 0.6s ease;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .header p {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 5px;
+  }
+
+  .lock {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    outline: none;
+    transition: 0.25s;
+  }
+
+  input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
+  }
+
+  .password-wrap {
+    position: relative;
+  }
+
+  .toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @keyframes spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+  }
+
+  #status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  .error {
+    animation: shake 0.3s;
+    border-color: #ef4444 !important;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="lock">🔐</div>
+
+  <div class="header">
+    <h1>Secure Admin Access</h1>
+    <p>Authorized personnel only</p>
+  </div>
+
+  <input id="email" placeholder="Email address" />
+
+  <div class="password-wrap">
+    <input id="password" type="password" placeholder="Password" />
+    <span class="toggle" onclick="togglePass()">show</span>
+  </div>
+
+  <button id="btn" onclick="login()">
+    Authenticate
+    <div class="spinner" id="spinner"></div>
+  </button>
+
+  <p id="status"></p>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAldZwToKnjPHf49cNWtgvlIcA9wYufuXY",
+    authDomain: "roack-001.firebaseapp.com",
+    projectId: "roack-001",
+    storageBucket: "roack-001.firebasestorage.app",
+    messagingSenderId: "1012152695411",
+    appId: "1:1012152695411:web:e9ae2b309f93e865e54806",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const emailEl = document.getElementById("email");
+  const passEl = document.getElementById("password");
+  const status = document.getElementById("status");
+  const spinner = document.getElementById("spinner");
+  const btn = document.getElementById("btn");
+  const card = document.getElementById("card");
+
+  window.togglePass = function () {
+    passEl.type = passEl.type === "password" ? "text" : "password";
+  };
+
+  function setLoading(state) {
+    spinner.style.display = state ? "block" : "none";
+    btn.disabled = state;
+  }
+
+  function errorShake(msg) {
+    status.innerText = msg;
+    card.classList.add("error");
+    setTimeout(() => card.classList.remove("error"), 400);
+  }
+
+  window.login = async function () {
+    setLoading(true);
+    status.innerText = "Verifying credentials...";
+
+    try {
+      await signInWithEmailAndPassword(auth, emailEl.value, passEl.value);
+      status.innerText = "Access granted. Redirecting...";
+      window.location.href = "index2.html";
+    } catch (err) {
+      errorShake("Access denied: invalid credentials");
+    } finally {
+      setLoading(false);
+    }
+  };
+</script>
+
+</body>
+</html>

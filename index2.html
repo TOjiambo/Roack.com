@@ -1,0 +1,1551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROACK CRM - Premium Real Estate Management</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+ 
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #1a1a24;
+      --bg-card: rgba(30, 30, 45, 0.6);
+      --bg-glass: rgba(255, 255, 255, 0.05);
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f5e6d3;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+    }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+ 
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+ 
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+ 
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-secondary);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border-color);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+ 
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 48px;
+      letter-spacing: -0.5px;
+    }
+ 
+    .nav-section {
+      margin-bottom: 32px;
+    }
+ 
+    .nav-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      padding-left: 16px;
+    }
+ 
+    .nav-btn {
+      width: 100%;
+      padding: 14px 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+ 
+    .nav-btn:hover {
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      transform: translateX(4px);
+    }
+ 
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+      color: var(--accent-gold);
+      border-left: 3px solid var(--accent-gold);
+    }
+ 
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+ 
+    .page-header {
+      margin-bottom: 40px;
+      animation: slideDown 0.6s ease;
+    }
+ 
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+ 
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+ 
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+      animation: fadeIn 0.8s ease 0.2s both;
+    }
+ 
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+ 
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+    }
+ 
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+ 
+    .stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+ 
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+ 
+    .stat-change {
+      font-size: 14px;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+ 
+    .stat-change.negative {
+      color: var(--danger);
+    }
+ 
+    /* Card */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.8s ease 0.4s both;
+    }
+ 
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+ 
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+ 
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+ 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+    }
+ 
+    .form-input,
+    .form-select {
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+ 
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+ 
+    .form-select {
+      cursor: pointer;
+    }
+ 
+    /* Buttons */
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+    }
+ 
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-gold), #c9a030);
+      color: var(--bg-primary);
+    }
+ 
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    }
+ 
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+ 
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent-gold);
+    }
+ 
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+ 
+    .btn-danger:hover {
+      background: var(--danger);
+      color: white;
+    }
+ 
+    /* Properties Grid */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+ 
+    .property-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+ 
+    .property-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: var(--accent-gold);
+    }
+ 
+    .property-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(59, 130, 246, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+ 
+    .property-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+ 
+    .property-content {
+      padding: 20px;
+    }
+ 
+    .property-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+ 
+    .property-location {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+ 
+    .property-details {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+ 
+    .property-detail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+ 
+    .property-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+ 
+    .property-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+ 
+    .status-badge {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+ 
+    .status-available {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+ 
+    .status-reserved {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+ 
+    .status-sold {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+ 
+    .status-rented {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--info);
+      border: 1px solid var(--info);
+    }
+ 
+    /* Customer Cards */
+    .customers-grid {
+      display: grid;
+      gap: 20px;
+    }
+ 
+    .customer-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+ 
+    .customer-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateX(4px);
+    }
+ 
+    .customer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+ 
+    .customer-info h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+ 
+    .customer-contact {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+ 
+    .customer-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+ 
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+ 
+    .meta-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+ 
+    .meta-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+ 
+    /* Documents */
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+ 
+    .document-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+ 
+    .document-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+    }
+ 
+    .document-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+ 
+    .document-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+ 
+    .document-type {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+ 
+    .document-actions {
+      display: flex;
+      gap: 8px;
+    }
+ 
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      margin-bottom: 24px;
+    }
+ 
+    .search-input {
+      width: 100%;
+      padding: 14px 48px 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+ 
+    .search-input:focus {
+      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+ 
+    .search-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+ 
+    /* Loading State */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      color: var(--text-secondary);
+    }
+ 
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--accent-gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+ 
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+ 
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+ 
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+ 
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+      }
+ 
+      .main-content {
+        padding: 24px;
+      }
+ 
+      .page-title {
+        font-size: 32px;
+      }
+    }
+ 
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+ 
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+      }
+ 
+      .main-content {
+        padding: 20px;
+      }
+ 
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+ 
+      .properties-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+ 
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-secondary);
+    }
+ 
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+ 
+    .empty-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+ 
+    .empty-text {
+      font-size: 15px;
+    }
+  </style>
+</head>
+ 
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">ROACK</div>
+ 
+      <div class="nav-section">
+        <div class="nav-label">Main</div>
+        <button class="nav-btn active" onclick="showSection('dashboard')">
+          <span class="nav-icon">📊</span>
+          Dashboard
+        </button>
+        <button class="nav-btn" onclick="showSection('properties')">
+          <span class="nav-icon">🏢</span>
+          Properties
+        </button>
+        <button class="nav-btn" onclick="showSection('customers')">
+          <span class="nav-icon">👥</span>
+          Customers
+        </button>
+        <button class="nav-btn" onclick="showSection('documents')">
+          <span class="nav-icon">📄</span>
+          Documents
+        </button>
+      </div>
+ 
+      <div class="nav-section">
+        <div class="nav-label">Analytics</div>
+        <button class="nav-btn" onclick="showSection('reports')">
+          <span class="nav-icon">📈</span>
+          Reports
+        </button>
+      </div>
+    </div>
+ 
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <!-- Dashboard content will be injected here -->
+    </div>
+  </div>
+ 
+  <script type="module">
+    /* ================= FIREBASE SETUP ================= */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      deleteDoc,
+      updateDoc,
+      doc,
+      query,
+      orderBy,
+      limit
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+ 
+    // TODO: Replace with your Firebase config
+    const firebaseConfig = {
+  apiKey: "AIzaSyAldZwToKnjPHf49cNWtgvlIcA9wYufuXY",
+  authDomain: "roack-001.firebaseapp.com",
+  projectId: "roack-001",
+  storageBucket: "roack-001.firebasestorage.app",
+  messagingSenderId: "1012152695411",
+  appId: "1:1012152695411:web:e9ae2b309f93e865e54806",
+};
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+ 
+    /* ================= STATE MANAGEMENT ================= */
+    let currentSection = 'dashboard';
+    let propertiesCache = [];
+    let customersCache = [];
+    let documentsCache = [];
+ 
+    /* ================= HELPER FUNCTIONS ================= */
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-KE', {
+        style: 'currency',
+        currency: 'KES',
+        minimumFractionDigits: 0
+      }).format(amount);
+    }
+ 
+    function formatDate(date) {
+      if (!date) return 'N/A';
+      const d = date.toDate ? date.toDate() : new Date(date);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+ 
+    function showLoading() {
+      return '<div class="loading"><div class="spinner"></div></div>';
+    }
+ 
+    function getStatusClass(status) {
+      const statusMap = {
+        'Available': 'status-available',
+        'Reserved': 'status-reserved',
+        'Sold': 'status-sold',
+        'Rented': 'status-rented'
+      };
+      return statusMap[status] || 'status-available';
+    }
+ 
+    /* ================= NAVIGATION ================= */
+    window.showSection = async function(section) {
+      currentSection = section;
+      
+      // Update active nav button
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event?.target?.classList.add('active');
+ 
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = showLoading();
+ 
+      switch(section) {
+        case 'dashboard':
+          await renderDashboard();
+          break;
+        case 'properties':
+          await renderProperties();
+          break;
+        case 'customers':
+          await renderCustomers();
+          break;
+        case 'documents':
+          await renderDocuments();
+          break;
+        case 'reports':
+          renderReports();
+          break;
+      }
+    };
+ 
+    /* ================= DASHBOARD ================= */
+    async function renderDashboard() {
+      const properties = await getDocs(collection(db, "properties"));
+      const customers = await getDocs(collection(db, "customers"));
+      const documents = await getDocs(collection(db, "documents"));
+ 
+      propertiesCache = [];
+      properties.forEach(doc => {
+        propertiesCache.push({ id: doc.id, ...doc.data() });
+      });
+ 
+      customersCache = [];
+      customers.forEach(doc => {
+        customersCache.push({ id: doc.id, ...doc.data() });
+      });
+ 
+      const availableProperties = propertiesCache.filter(p => p.status === 'Available').length;
+      const activeCustomers = customersCache.filter(c => 
+        c.status === 'Viewing' || c.status === 'Negotiation'
+      ).length;
+ 
+      const totalValue = propertiesCache.reduce((sum, p) => 
+        sum + (parseFloat(p.price) || 0), 0
+      );
+ 
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="page-header">
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-subtitle">Welcome back! Here's what's happening today.</p>
+        </div>
+ 
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Properties</div>
+            <div class="stat-value">${propertiesCache.length}</div>
+            <div class="stat-change">↑ ${availableProperties} available</div>
+          </div>
+ 
+          <div class="stat-card">
+            <div class="stat-label">Active Customers</div>
+            <div class="stat-value">${activeCustomers}</div>
+            <div class="stat-change">↑ ${customersCache.length} total</div>
+          </div>
+ 
+          <div class="stat-card">
+            <div class="stat-label">Portfolio Value</div>
+            <div class="stat-value">${formatCurrency(totalValue)}</div>
+            <div class="stat-change">Updated today</div>
+          </div>
+ 
+          <div class="stat-card">
+            <div class="stat-label">Documents</div>
+            <div class="stat-value">${documents.size}</div>
+            <div class="stat-change">↑ Secure storage</div>
+          </div>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Properties</h2>
+            <button class="btn btn-primary" onclick="showSection('properties')">View All</button>
+          </div>
+          <div class="properties-grid" id="recentProperties"></div>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Customers</h2>
+            <button class="btn btn-primary" onclick="showSection('customers')">View All</button>
+          </div>
+          <div class="customers-grid" id="recentCustomers"></div>
+        </div>
+      `;
+ 
+      // Render recent properties
+      renderPropertyCards(propertiesCache.slice(0, 3), 'recentProperties');
+      
+      // Render recent customers
+      renderCustomerCards(customersCache.slice(0, 3), 'recentCustomers');
+    }
+ 
+    /* ================= PROPERTIES ================= */
+    async function renderProperties() {
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="page-header">
+          <h1 class="page-title">Properties</h1>
+          <p class="page-subtitle">Manage your real estate portfolio</p>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Add New Property</h2>
+          </div>
+ 
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Title</label>
+              <input type="text" class="form-input" id="propTitle" placeholder="Luxury Villa in Westlands">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Price (KES)</label>
+              <input type="number" class="form-input" id="propPrice" placeholder="15000000">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" id="propLocation" placeholder="Westlands, Nairobi">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Property Type</label>
+              <select class="form-select" id="propType">
+                <option>Apartment</option>
+                <option>Villa</option>
+                <option>Townhouse</option>
+                <option>Commercial</option>
+                <option>Land</option>
+              </select>
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Bedrooms</label>
+              <input type="number" class="form-input" id="propBeds" placeholder="4">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Bathrooms</label>
+              <input type="number" class="form-input" id="propBaths" placeholder="3">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Size (sqm)</label>
+              <input type="number" class="form-input" id="propSize" placeholder="250">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="propStatus">
+                <option>Available</option>
+                <option>Reserved</option>
+                <option>Sold</option>
+                <option>Rented</option>
+              </select>
+            </div>
+ 
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">Image URL</label>
+              <input type="text" class="form-input" id="propImage" placeholder="https://example.com/property.jpg">
+            </div>
+          </div>
+ 
+          <button class="btn btn-primary" onclick="addProperty()">
+            ➕ Add Property
+          </button>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">All Properties</h2>
+          </div>
+          <div class="search-bar">
+            <input type="text" class="search-input" id="propertySearch" placeholder="Search properties..." oninput="filterProperties()">
+            <span class="search-icon">🔍</span>
+          </div>
+          <div class="properties-grid" id="propertiesList"></div>
+        </div>
+      `;
+ 
+      await loadProperties();
+    }
+ 
+    async function loadProperties() {
+      const snap = await getDocs(collection(db, "properties"));
+      propertiesCache = [];
+      snap.forEach(doc => {
+        propertiesCache.push({ id: doc.id, ...doc.data() });
+      });
+ 
+      renderPropertyCards(propertiesCache, 'propertiesList');
+    }
+ 
+    function renderPropertyCards(properties, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+ 
+      if (properties.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🏢</div>
+            <div class="empty-title">No properties yet</div>
+            <div class="empty-text">Add your first property to get started</div>
+          </div>
+        `;
+        return;
+      }
+ 
+      container.innerHTML = properties.map(prop => `
+        <div class="property-card">
+          <div class="property-image">
+            ${prop.image ? 
+              `<img src="${prop.image}" alt="${prop.title}" onerror="this.parentElement.innerHTML='📷 No Image'">` : 
+              '📷 No Image'
+            }
+          </div>
+          <div class="property-content">
+            <h3 class="property-title">${prop.title || 'Untitled Property'}</h3>
+            <div class="property-location">📍 ${prop.location || 'Location not specified'}</div>
+            
+            <div class="property-details">
+              ${prop.beds ? `<div class="property-detail">🛏️ ${prop.beds} beds</div>` : ''}
+              ${prop.baths ? `<div class="property-detail">🚿 ${prop.baths} baths</div>` : ''}
+              ${prop.size ? `<div class="property-detail">📐 ${prop.size} sqm</div>` : ''}
+            </div>
+ 
+            <div class="property-footer">
+              <div class="property-price">${formatCurrency(prop.price || 0)}</div>
+              <span class="status-badge ${getStatusClass(prop.status)}">${prop.status || 'Available'}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+ 
+    window.addProperty = async function() {
+      const title = document.getElementById('propTitle').value;
+      const price = document.getElementById('propPrice').value;
+      
+      if (!title || !price) {
+        alert('Please fill in title and price');
+        return;
+      }
+ 
+      try {
+        await addDoc(collection(db, "properties"), {
+          title: title,
+          price: parseFloat(price),
+          location: document.getElementById('propLocation').value,
+          type: document.getElementById('propType').value,
+          beds: parseInt(document.getElementById('propBeds').value) || 0,
+          baths: parseInt(document.getElementById('propBaths').value) || 0,
+          size: parseInt(document.getElementById('propSize').value) || 0,
+          status: document.getElementById('propStatus').value,
+          image: document.getElementById('propImage').value,
+          createdAt: new Date()
+        });
+ 
+        // Clear form
+        document.getElementById('propTitle').value = '';
+        document.getElementById('propPrice').value = '';
+        document.getElementById('propLocation').value = '';
+        document.getElementById('propBeds').value = '';
+        document.getElementById('propBaths').value = '';
+        document.getElementById('propSize').value = '';
+        document.getElementById('propImage').value = '';
+ 
+        await loadProperties();
+      } catch (error) {
+        console.error('Error adding property:', error);
+        alert('Error adding property. Please try again.');
+      }
+    };
+ 
+    window.filterProperties = function() {
+      const searchTerm = document.getElementById('propertySearch').value.toLowerCase();
+      const filtered = propertiesCache.filter(prop => 
+        (prop.title || '').toLowerCase().includes(searchTerm) ||
+        (prop.location || '').toLowerCase().includes(searchTerm) ||
+        (prop.type || '').toLowerCase().includes(searchTerm)
+      );
+      renderPropertyCards(filtered, 'propertiesList');
+    };
+ 
+    /* ================= CUSTOMERS ================= */
+    async function renderCustomers() {
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="page-header">
+          <h1 class="page-title">Customers</h1>
+          <p class="page-subtitle">Manage your client relationships</p>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Add New Customer</h2>
+          </div>
+ 
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-input" id="custName" placeholder="John Doe">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" id="custPhone" placeholder="+254 712 345 678">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="custEmail" placeholder="john@example.com">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="custStatus">
+                <option>New</option>
+                <option>Contacted</option>
+                <option>Viewing</option>
+                <option>Negotiation</option>
+                <option>Closed</option>
+              </select>
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Assigned Agent</label>
+              <input type="text" class="form-input" id="custAgent" placeholder="Agent Name">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Follow-up Date</label>
+              <input type="date" class="form-input" id="custFollowUp">
+            </div>
+ 
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">Interest/Notes</label>
+              <input type="text" class="form-input" id="custInterest" placeholder="Looking for 3-bedroom apartment in Westlands">
+            </div>
+          </div>
+ 
+          <button class="btn btn-primary" onclick="addCustomer()">
+            ➕ Add Customer
+          </button>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">All Customers</h2>
+          </div>
+          <div class="search-bar">
+            <input type="text" class="search-input" id="customerSearch" placeholder="Search customers..." oninput="filterCustomers()">
+            <span class="search-icon">🔍</span>
+          </div>
+          <div class="customers-grid" id="customersList"></div>
+        </div>
+      `;
+ 
+      await loadCustomers();
+    }
+ 
+    async function loadCustomers() {
+      const snap = await getDocs(collection(db, "customers"));
+      customersCache = [];
+      snap.forEach(doc => {
+        customersCache.push({ id: doc.id, ...doc.data() });
+      });
+ 
+      renderCustomerCards(customersCache, 'customersList');
+    }
+ 
+    function renderCustomerCards(customers, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+ 
+      if (customers.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">👥</div>
+            <div class="empty-title">No customers yet</div>
+            <div class="empty-text">Add your first customer to start tracking</div>
+          </div>
+        `;
+        return;
+      }
+ 
+      container.innerHTML = customers.map(cust => `
+        <div class="customer-card">
+          <div class="customer-header">
+            <div class="customer-info">
+              <h3>${cust.name || 'Unnamed Customer'}</h3>
+              <div class="customer-contact">
+                ${cust.phone ? `📞 ${cust.phone}` : ''} 
+                ${cust.email ? `| ✉️ ${cust.email}` : ''}
+              </div>
+            </div>
+            <span class="status-badge ${getStatusClass(cust.status || 'New')}">
+              ${cust.status || 'New'}
+            </span>
+          </div>
+ 
+          <div class="customer-meta">
+            ${cust.agent ? `
+              <div class="meta-item">
+                <div class="meta-label">Agent</div>
+                <div class="meta-value">${cust.agent}</div>
+              </div>
+            ` : ''}
+            
+            ${cust.followUp ? `
+              <div class="meta-item">
+                <div class="meta-label">Follow-up</div>
+                <div class="meta-value">${cust.followUp}</div>
+              </div>
+            ` : ''}
+ 
+            ${cust.interest ? `
+              <div class="meta-item" style="grid-column: 1 / -1;">
+                <div class="meta-label">Interest</div>
+                <div class="meta-value">${cust.interest}</div>
+              </div>
+            ` : ''}
+          </div>
+ 
+          <div style="margin-top: 16px; display: flex; gap: 8px;">
+            <button class="btn btn-secondary" style="flex: 1; padding: 10px;" onclick="editCustomer('${cust.id}')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-danger" style="padding: 10px;" onclick="deleteCustomer('${cust.id}')">
+              🗑️
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+ 
+    window.addCustomer = async function() {
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      
+      if (!name || !phone) {
+        alert('Please fill in name and phone');
+        return;
+      }
+ 
+      try {
+        await addDoc(collection(db, "customers"), {
+          name: name,
+          phone: phone,
+          email: document.getElementById('custEmail').value,
+          status: document.getElementById('custStatus').value,
+          agent: document.getElementById('custAgent').value,
+          followUp: document.getElementById('custFollowUp').value,
+          interest: document.getElementById('custInterest').value,
+          createdAt: new Date()
+        });
+ 
+        // Clear form
+        document.getElementById('custName').value = '';
+        document.getElementById('custPhone').value = '';
+        document.getElementById('custEmail').value = '';
+        document.getElementById('custAgent').value = '';
+        document.getElementById('custFollowUp').value = '';
+        document.getElementById('custInterest').value = '';
+ 
+        await loadCustomers();
+      } catch (error) {
+        console.error('Error adding customer:', error);
+        alert('Error adding customer. Please try again.');
+      }
+    };
+ 
+    window.deleteCustomer = async function(id) {
+      if (!confirm('Are you sure you want to delete this customer?')) return;
+      
+      try {
+        await deleteDoc(doc(db, "customers", id));
+        await loadCustomers();
+      } catch (error) {
+        console.error('Error deleting customer:', error);
+        alert('Error deleting customer. Please try again.');
+      }
+    };
+ 
+    window.editCustomer = function(id) {
+      alert('Edit functionality coming soon!');
+    };
+ 
+    window.filterCustomers = function() {
+      const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
+      const filtered = customersCache.filter(cust => 
+        (cust.name || '').toLowerCase().includes(searchTerm) ||
+        (cust.phone || '').toLowerCase().includes(searchTerm) ||
+        (cust.email || '').toLowerCase().includes(searchTerm) ||
+        (cust.interest || '').toLowerCase().includes(searchTerm)
+      );
+      renderCustomerCards(filtered, 'customersList');
+    };
+ 
+    /* ================= DOCUMENTS ================= */
+    async function renderDocuments() {
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="page-header">
+          <h1 class="page-title">Documents</h1>
+          <p class="page-subtitle">Manage customer documents and files</p>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Upload Document</h2>
+          </div>
+ 
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Document Name</label>
+              <input type="text" class="form-input" id="docName" placeholder="Contract Agreement">
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Document Type</label>
+              <select class="form-select" id="docType">
+                <option>ID</option>
+                <option>Contract</option>
+                <option>Payment</option>
+                <option>Agreement</option>
+                <option>Other</option>
+              </select>
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">Customer</label>
+              <select class="form-select" id="docCustomer">
+                <option value="">Select Customer</option>
+              </select>
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label">File</label>
+              <input type="file" class="form-input" id="docFile">
+            </div>
+          </div>
+ 
+          <button class="btn btn-primary" onclick="uploadDocument()">
+            📤 Upload Document
+          </button>
+        </div>
+ 
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">All Documents</h2>
+          </div>
+          <div class="documents-grid" id="documentsList"></div>
+        </div>
+      `;
+ 
+      await loadCustomersForDocSelect();
+      await loadDocuments();
+    }
+ 
+    async function loadCustomersForDocSelect() {
+      const select = document.getElementById('docCustomer');
+      if (!select) return;
+ 
+      const snap = await getDocs(collection(db, "customers"));
+      let html = '<option value="">Select Customer</option>';
+      
+      snap.forEach(doc => {
+        const cust = doc.data();
+        html += `<option value="${doc.id}">${cust.name}</option>`;
+      });
+ 
+      select.innerHTML = html;
+    }
+ 
+    async function loadDocuments() {
+      const snap = await getDocs(collection(db, "documents"));
+      documentsCache = [];
+      snap.forEach(doc => {
+        documentsCache.push({ id: doc.id, ...doc.data() });
+      });
+ 
+      renderDocumentCards(documentsCache);
+    }
+ 
+    function renderDocumentCards(documents) {
+      const container = document.getElementById('documentsList');
+      if (!container) return;
+ 
+      if (documents.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📄</div>
+            <div class="empty-title">No documents yet</div>
+            <div class="empty-text">Upload your first document to get started</div>
+          </div>
+        `;
+        return;
+      }
+ 
+      container.innerHTML = documents.map(doc => `
+        <div class="document-card">
+          <div class="document-icon">📄</div>
+          <div class="document-name">${doc.name || 'Untitled Document'}</div>
+          <div class="document-type">${doc.type || 'Unknown Type'}</div>
+          <div class="document-actions">
+            <a href="${doc.url}" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
+              👁️ Open
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+ 
+    window.uploadDocument = async function() {
+      const file = document.getElementById('docFile')?.files?.[0];
+      const name = document.getElementById('docName').value;
+      
+      if (!file || !name) {
+        alert('Please select a file and enter a name');
+        return;
+      }
+ 
+      try {
+        const fileRef = ref(storage, `docs/${Date.now()}_${file.name}`);
+        await uploadBytes(fileRef, file);
+        const url = await getDownloadURL(fileRef);
+ 
+        await addDoc(collection(db, "documents"), {
+          name: name,
+          type: document.getElementById('docType').value,
+          customerId: document.getElementById('docCustomer').value,
+          url: url,
+          createdAt: new Date()
+        });
+ 
+        // Clear form
+        document.getElementById('docName').value = '';
+        document.getElementById('docFile').value = '';
+ 
+        await loadDocuments();
+      } catch (error) {
+        console.error('Error uploading document:', error);
+        alert('Error uploading document. Please try again.');
+      }
+    };
+ 
+    /* ================= REPORTS ================= */
+    function renderReports() {
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="page-header">
+          <h1 class="page-title">Reports</h1>
+          <p class="page-subtitle">Analytics and insights</p>
+        </div>
+ 
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-icon">📊</div>
+            <div class="empty-title">Reports Coming Soon</div>
+            <div class="empty-text">Advanced analytics and reporting features will be available here</div>
+          </div>
+        </div>
+      `;
+    }
+ 
+    /* ================= INITIALIZATION ================= */
+    showSection('dashboard');
+
+    
+  </script>
+</body>
+</html>
