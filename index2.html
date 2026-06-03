@@ -656,6 +656,241 @@
   /* Animations */
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .doc-row, .doc-card { animation: fadeIn 0.2s ease both; }
+
+  /* Prevent horizontal scrolling */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+
+    .hero,
+    .about-container,
+    .contact-container,
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content,
+    .hero-image,
+    .card,
+    .property-card {
+        width: 100%;
+    }
+
+    .grid,
+    .cards,
+    .properties-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* =========================
+   RESPONSIVE FIX PATCH
+   ========================= */
+
+/* Prevent horizontal scroll issues */
+html, body {
+  overflow-x: hidden;
+}
+
+/* =========================
+   TABLE WRAPPER FIX
+   ========================= */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* =========================
+   GLOBAL MOBILE LAYOUT FIX
+   ========================= */
+@media (max-width: 768px) {
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .main {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 0 1rem;
+  }
+
+  .header-title {
+    font-size: 16px;
+  }
+
+  .header-subtitle {
+    display: none;
+  }
+
+  /* =========================
+     TOOLBAR STACK FIX
+     ========================= */
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .search-wrap {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .date-range-wrap {
+    display: none;
+  }
+
+  .view-toggle {
+    width: fit-content;
+  }
+
+  /* =========================
+     CATEGORY PILLS SCROLL
+     ========================= */
+  .cat-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
+
+  .cat-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* =========================
+     STATS GRID FIX
+     ========================= */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  /* =========================
+     DOC GRID FIX
+     ========================= */
+  .doc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* =========================
+     TABLE IMPROVEMENTS
+     ========================= */
+  .doc-table th,
+  .doc-table td {
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  /* =========================
+     MODALS
+     ========================= */
+  .modal {
+    padding: 1.25rem;
+    max-width: 95%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* =========================
+     BULK BAR
+     ========================= */
+  .bulk-bar {
+    width: 92%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+}
+
+/* =========================
+   SMALL PHONES (extra fix)
+   ========================= */
+@media (max-width: 420px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 0.8rem 1rem;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .btn-upload {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+
+  .doc-name {
+    max-width: 160px;
+  }
+
+  .bulk-bar {
+    font-size: 12px;
+  }
+}
 </style>
 </head>
 <body>

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="roack.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -1350,13 +1351,92 @@
       <a href="#" class="nav-link" onclick="navigateTo('services')">Survey Services</a>
       <a href="#" class="nav-link" onclick="navigateTo('projects')">Projects</a>
       <a href="#" class="nav-link" onclick="navigateTo('about')">About</a>
-      <a href="#" class="nav-link" onclick="navigateTo('')">Contact</a>
+      <a href="#" class="nav-link" onclick="navigateTo('contact')">Contact</a>
 
      <a href="login.html">Login</a>
     </div>
   </div>
  
-  <style>.nav-container {
+  <style>
+  /* NAVBAR */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+   
+
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    
+}
+
+/* Hamburger */
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #B87333;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+       
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-links.active {
+        max-height: 500px;
+    }
+}
+  
+  .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1660,6 +1740,74 @@
     .hero-cta {
         flex-direction: column;
         gap: 12px;
+    }
+}
+
+/* Prevent horizontal scrolling */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+
+    .hero,
+    .about-container,
+    .contact-container,
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content,
+    .hero-image,
+    .card,
+    .property-card {
+        width: 100%;
+    }
+
+    .grid,
+    .cards,
+    .properties-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 </style>
@@ -2062,7 +2210,7 @@
             <h2>Need Land or Survey Support Today?</h2>
             <p>Our team is ready to help you secure and verify your next property investment</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Consultation</button>
+                <button class="btn btn-secondary" onclick="openWhatsApp()">WhatsApp Consultation</button>
                 <button class="btn btn-secondary" onclick="navigateTo('contact')">Request Callback</button>
             </div>
         </section>
@@ -2128,40 +2276,101 @@
 
 </div>
 <style>
-    .filter-bar {
+.filter-bar {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
+/* EACH FILTER BLOCK */
 .filter-group {
     display: flex;
     flex-direction: column;
-    min-width: 180px;
+    min-width: 200px;
+    flex: 1;
 }
 
+/* LABEL */
 .filter-group label {
-    color: #d4af37; /* gold label */
+    color: #d4af37;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    font-size: 14px;
 }
 
-/* FIX DROPDOWN VISIBILITY */
+/* SELECT BOX */
 .filter-group select {
-    background: #111;        /* dark background */
-    color: #fff;             /* visible text */
-    border: 1px solid #d4af37;
-    padding: 10px;
-    border-radius: 6px;
+    background: #111;
+    color: #fff;
+    border: 1px solid rgba(212,175,55,0.6);
+    padding: 12px;
+    border-radius: 8px;
     outline: none;
     cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
 }
 
-/* FIX OPTIONS INSIDE DROPDOWN */
-.filter-group select option {
-    background: #fff;   /* important */
-    color: #000;        /* readable text */
+.filter-group select:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
 }
+
+/* OPTIONS INSIDE DROPDOWN */
+.filter-group select option {
+    background: #fff;
+    color: #000;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+    .filter-bar {
+        gap: 15px;
+    }
+
+    .filter-group {
+        min-width: 45%;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    .filter-group select {
+        width: 100%;
+    }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+    .filter-group label {
+        font-size: 13px;
+    }
+
+    .filter-group select {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+</style>
 </style>
 
 
@@ -2400,7 +2609,7 @@
             <h2>Looking for Something Specific?</h2>
             <p>Let our team help you find the perfect property match</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Us</button>
+                <button class="btn btn-secondary" onclick="openWhatsApp()">WhatsApp Us</button>
                 <button class="btn btn-secondary" onclick="navigateTo('contact')">Contact Agent</button>
             </div>
         </section>
@@ -2478,11 +2687,11 @@
             </div>
         </section>
         
-        <section class="lux-survey">
+    <section class="lux-survey">
 
   <div class="lux-container">
 
-    <!-- LEFT PANEL (VALUE / BRAND SIDE) -->
+    <!-- LEFT PANEL -->
     <div class="lux-info">
 
       <h2>Professional Land Survey Consultation</h2>
@@ -2505,21 +2714,24 @@
 
     </div>
 
-    <!-- RIGHT PANEL (INTERACTIVE FLOW) -->
+    <!-- RIGHT PANEL -->
     <div class="lux-card">
 
       <div class="lux-progress">
         <div id="progress"></div>
       </div>
 
-      <form id="surveyForm">
+      <!-- FORMSPREE INTEGRATED FORM -->
+      <form id="surveyForm"
+            action="https://formspree.io/f/xojzabre"
+            method="POST">
 
         <!-- STEP 1 -->
         <div class="lux-step active">
           <h3>Who is this for?</h3>
 
-          <input type="text" id="name" placeholder="Full Name">
-          <input type="tel" id="phone" placeholder="Phone Number">
+          <input type="text" name="name" placeholder="Full Name" required>
+          <input type="tel" name="phone" placeholder="Phone Number" required>
 
           <button type="button" class="next">Continue</button>
         </div>
@@ -2528,7 +2740,7 @@
         <div class="lux-step">
           <h3>Property Location</h3>
 
-          <input type="text" id="location" placeholder="e.g. Karen, Nairobi">
+          <input type="text" name="location" placeholder="e.g. Karen, Nairobi" required>
 
           <div class="lux-map">
             📍 Drop Pin Preview (Map Integration Later)
@@ -2543,10 +2755,10 @@
           <h3>Survey Type</h3>
 
           <div class="lux-options">
-            <label><input type="checkbox"> Boundary</label>
-            <label><input type="checkbox"> Topographic</label>
-            <label><input type="checkbox"> Subdivision</label>
-            <label><input type="checkbox"> Beacon Re-establishment</label>
+            <label><input type="checkbox" name="surveyType" value="Boundary"> Boundary</label>
+            <label><input type="checkbox" name="surveyType" value="Topographic"> Topographic</label>
+            <label><input type="checkbox" name="surveyType" value="Subdivision"> Subdivision</label>
+            <label><input type="checkbox" name="surveyType" value="Beacon Re-establishment"> Beacon Re-establishment</label>
           </div>
 
           <button type="button" class="back">Back</button>
@@ -2557,13 +2769,13 @@
         <div class="lux-step">
           <h3>Timeline</h3>
 
-          <select id="urgency">
+          <select name="urgency" required>
             <option value="standard">Standard</option>
             <option value="urgent">Urgent</option>
             <option value="vip">VIP Priority</option>
           </select>
 
-          <textarea id="notes" placeholder="Any additional details..."></textarea>
+          <textarea name="notes" placeholder="Any additional details..."></textarea>
 
           <button type="button" class="back">Back</button>
           <button type="button" class="next">Review</button>
@@ -2575,16 +2787,27 @@
 
           <div class="lux-summary" id="summary"></div>
 
-          <button type="button" class="back">Back</button>
-          <button type="submit" class="lux-submit">Submit Request</button>
+          <!-- Optional extras -->
+          <input type="hidden" name="_subject" value="New Survey Request">
+          <input type="hidden" name="_captcha" value="false">
 
-          <a id="whatsappBtn" class="lux-whatsapp" >
+          <button type="button" class="back">Back</button>
+
+          <button type="submit" class="lux-submit">
+            Submit Request
+          </button>
+
+          <a id="whatsappBtn" class="lux-whatsapp">
             Send via WhatsApp
           </a>
 
         </div>
 
       </form>
+    </div>
+
+  </div>
+</section>
 <style>
 .lux-survey {
   padding: 80px 40px;
@@ -2726,18 +2949,109 @@ button {
   color: #000;
   text-decoration: none;
 }
+
+/* =========================
+   RESPONSIVE FIXES
+========================= */
+
+@media (max-width: 992px) {
+
+  .lux-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .lux-survey {
+    padding: 60px 25px;
+  }
+
+  .lux-info,
+  .lux-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .lux-survey {
+    padding: 50px 15px;
+  }
+
+  .lux-info h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .lux-card {
+    padding: 20px;
+  }
+
+  .lux-step h3 {
+    font-size: 20px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* prevents iPhone zoom */
+  }
+
+  .next,
+  .back,
+  .lux-submit,
+  .lux-whatsapp {
+    width: 100%;
+    float: none;
+    margin-top: 12px;
+  }
+
+  .lux-options {
+    grid-template-columns: 1fr;
+  }
+
+  .lux-map {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .lux-survey {
+    padding: 40px 12px;
+  }
+
+  .lux-info h2 {
+    font-size: 24px;
+  }
+
+  .lux-estimate {
+    font-size: 14px;
+  }
+
+  .lux-card {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  button {
+    padding: 14px;
+  }
+}
+
+.lux-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
 </style>
-    </div>
-
-  </div>
-
-</section>
+  
 
         <section class="cta-banner">
             <h2>Book a Surveyor Visit Today</h2>
             <p>Fast, accurate, and professional land surveying services</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="openWhatsApp()">WhatsApp Now</button>
+                <button class="btn btn-secondary" onclick="openWhatsApp()">WhatsApp Now</button>
                 <button class="btn btn-secondary" onclick="navigateTo('contact')">Request Quote</button>
             </div>
         </section>
@@ -2953,6 +3267,148 @@ button {
     cursor: pointer;
 }
 </style>
+<style>
+
+/* =========================
+   CONTACT GRID BASE
+========================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* LEFT PANEL */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* CONTACT ITEM */
+.contact-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212,175,55,0.1);
+    transition: 0.2s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(212,175,55,0.4);
+}
+
+/* ICON */
+.contact-icon {
+    font-size: 20px;
+    min-width: 30px;
+}
+
+/* DETAILS */
+.contact-details h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.contact-details p {
+    margin: 4px 0 0;
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+/* RIGHT FORM */
+.contact-form {
+    padding: 20px;
+}
+
+/* FORM FIELDS */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #d4af37;
+}
+
+input,
+select,
+textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #111;
+    color: #fff;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .contact-form {
+        padding: 10px 0;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .contact-item {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .contact-form h3 {
+        font-size: 24px !important;
+    }
+
+    .contact-map iframe {
+        height: 200px;
+    }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+
+    .contact-item {
+        padding: 12px;
+    }
+
+    .contact-details h4 {
+        font-size: 15px;
+    }
+
+    .contact-details p {
+        font-size: 13px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 14px;
+    }
+}
+
+</style>
 
                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@roackconsult.com" class="contact-item">
     <div class="contact-icon">📧</div>
@@ -2995,41 +3451,51 @@ button {
                 <!-- Contact Form -->
                 <div class="contact-form">
                     <h3 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Send Us a Message</h3>
-                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
-                        <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" required placeholder="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" required placeholder="+254 712 345 678">
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Service Needed *</label>
-                            <select required>
-                                <option value="">Select a service...</option>
-                                <option>Property Inquiry</option>
-                                <option>Boundary Survey</option>
-                                <option>Topographic Survey</option>
-                                <option>Title Verification</option>
-                                <option>Development Consultancy</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Location</label>
-                            <input type="text" placeholder="Nairobi, Karen">
-                        </div>
-                        <div class="form-group">
-                            <label>Message *</label>
-                            <textarea required placeholder="Tell us about your requirements..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
-                    </form>
+                    <form id="contactForm" action="https://formspree.io/f/xojzabre" method="POST">
+
+    <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" name="name" required placeholder="John Doe">
+    </div>
+
+    <div class="form-group">
+        <label>Phone Number *</label>
+        <input type="tel" name="phone" required placeholder="+254 712 345 678">
+    </div>
+
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="john@example.com">
+    </div>
+
+    <div class="form-group">
+        <label>Service Needed *</label>
+        <select name="service" required>
+            <option value="">Select a service...</option>
+            <option>Property Inquiry</option>
+            <option>Boundary Survey</option>
+            <option>Topographic Survey</option>
+            <option>Title Verification</option>
+            <option>Development Consultancy</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="location" placeholder="Nairobi, Karen">
+    </div>
+
+    <div class="form-group">
+        <label>Message *</label>
+        <textarea name="message" required placeholder="Tell us about your requirements..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width: 100%;">
+        Submit Inquiry
+    </button>
+
+</form>
                 </div>
             </div>
 
@@ -3118,7 +3584,7 @@ button {
 
         // WhatsApp function
         function openWhatsApp() {
-            const phoneNumber = '254712345678'; // Replace with actual number
+            const phoneNumber = '254706895492'; // Replace with actual number
             const message = 'Hello! I would like to inquire about your services.';
             window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
         }
@@ -3201,28 +3667,7 @@ statusFilter.addEventListener("change", filterProperties);
 filterProperties();
 </script>
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const form = this;
-
-    const subject = "New Inquiry from " + form.elements[0].value;
-
-    const body =
-        "Name: " + form.elements[0].value + "\n" +
-        "Phone: " + form.elements[1].value + "\n" +
-        "Email: " + form.elements[2].value + "\n" +
-        "Service: " + form.elements[3].value + "\n" +
-        "Location: " + form.elements[4].value + "\n\n" +
-        "Message:\n" + form.elements[5].value;
-
-    window.location.href =
-        "mailto:tonyasiachi@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-});
-</script>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -3246,5 +3691,188 @@ async function testFirebase() {
 testFirebase();
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================
+     MOBILE NAV
+  ========================= */
+  window.toggleMenu = function () {
+    document.getElementById("navLinks").classList.toggle("active");
+  };
+
+  document.querySelectorAll("#navLinks a").forEach(link => {
+    link.addEventListener("click", () => {
+      document.getElementById("navLinks").classList.remove("active");
+    });
+  });
+
+  /* =========================
+     STEP FORM LOGIC
+  ========================= */
+  const steps = document.querySelectorAll(".lux-step");
+  const nextBtns = document.querySelectorAll(".next");
+  const backBtns = document.querySelectorAll(".back");
+
+  let currentStep = 0;
+
+  function showStep(index) {
+    steps.forEach((step, i) => {
+      step.classList.toggle("active", i === index);
+    });
+
+    const progress = document.getElementById("progress");
+    if (progress) {
+      progress.style.width = ((index + 1) / steps.length) * 100 + "%";
+    }
+  }
+
+  nextBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  backBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  showStep(currentStep);
+
+  /* =========================
+     NOTIFICATION SYSTEM
+  ========================= */
+  function showNotification(message, type = "success") {
+    const el = document.createElement("div");
+
+    el.textContent = message;
+
+    el.style.position = "fixed";
+    el.style.bottom = "20px";
+    el.style.right = "20px";
+    el.style.padding = "12px 16px";
+    el.style.borderRadius = "8px";
+    el.style.color = "#fff";
+    el.style.zIndex = "9999";
+    el.style.fontSize = "14px";
+    el.style.boxShadow = "0 10px 20px rgba(0,0,0,0.2)";
+
+    el.style.background = type === "success" ? "#25D366" : "#e74c3c";
+
+    document.body.appendChild(el);
+
+    setTimeout(() => el.remove(), 3000);
+  }
+
+  /* =========================
+     FORMSPREE (NO REDIRECT)
+  ========================= */
+  const form = document.getElementById("surveyForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // 🔥 BLOCKS REDIRECT
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (res.ok) {
+        showNotification("Request sent successfully ✅", "success");
+
+        form.reset();
+
+        // reset steps
+        currentStep = 0;
+        showStep(currentStep);
+
+      } else {
+        showNotification("Failed to send request ❌", "error");
+      }
+
+    } catch (err) {
+      showNotification("Network error ❌", "error");
+    }
+  });
+
+  /* =========================
+     WHATSAPP BUTTON (OPTIONAL)
+  ========================= */
+  const whatsappBtn = document.getElementById("whatsappBtn");
+
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener("click", () => {
+
+      const name = document.querySelector("input[name='name']")?.value || "";
+      const phone = document.querySelector("input[name='phone']")?.value || "";
+      const location = document.querySelector("input[name='location']")?.value || "";
+      const urgency = document.querySelector("select[name='urgency']")?.value || "";
+      const notes = document.querySelector("textarea[name='notes']")?.value || "";
+
+      const msg = `
+New Survey Request:
+Name: ${name}
+Phone: ${phone}
+Location: ${location}
+Urgency: ${urgency}
+Notes: ${notes}
+`;
+
+      const url = "https://wa.me/254706895492?text=" + encodeURIComponent(msg);
+
+      window.open(url, "_blank");
+    });
+  }
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // stops redirect
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (res.ok) {
+        alert("Message sent successfully ✅");
+        form.reset();
+      } else {
+        alert("Failed to send ❌");
+      }
+
+    } catch (err) {
+      alert("Network error ❌");
+    }
+  });
+
+});
+</script>
 </body>
 </html>
